@@ -1,0 +1,192 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+/* KILDER FOR DEN FØLGENDE KODE: 
+- Everride codealongs og mine tilhørende øvelser (version 6 i TypeScript)
+- Moodle
+- ... */
+
+/* Maybe TO DO after meeting assignment requirements:
+In a relational database, dates of update should be in a different table than the created records 
+since fields should never be empty, and the date of creation goes in the table with the newly created records.
+Is there also potential to add tables for reused fields?
+
+IMPORTANT note about idempotency:
+HTTP-request methods such as put are not inherently idempotent. Programmers are asked to make these requests idempotent 
+in order to respect standards set by Requests for Comments (RFCs) to the Internet Engineering Task Force (IETF).
+*/
+
+// A schema is a database. A model is like a table in MS Access.
+/* ORM: object relational mapping. "Some popular Node.js / JavaScript ORM frameworks include:
+Sequelize
+Prisma (...)
+Choosing the right ORM for you depends on the programming language being used and the specific needs of the project."
+https://ishangodhani.medium.com/7-best-and-worst-orm-for-node-js-in-2024-7fd326afdf73 (That source seems to indicate that Sequelize is more performant than Prisma, but Prisma is good for beginners/people who don't know much about back-end development.)
+*/
+
+/* Every time the model is modified, it is necessary to run prisma generate with following command line.
+IMPORTANT: that only works when it is done from the folder where the file schema.prisma is! 
+npx prisma generate
+npx prisma migrate dev --name <name_given_to_migration_see_migrations_folder>
+Sources: 
+https://www.prisma.io/docs/orm/overview/introduction/what-is-prisma
+Moodle
+*/
+
+/* "Syntax
+Prisma Schema files are written in Prisma Schema Language (PSL). See the data sources, generators, data model definition and of course Prisma Schema API reference pages for details and examples."
+https://www.prisma.io/docs/orm/prisma-schema/overview
+*/
+
+// generator og datakilde "er indstillinger for hvor data skal hentes og hvordan de skal kaldes." https://moodle.techcollege.dk/course/section.php?id=284529
+generator client {
+    provider = "prisma-client-js"
+    /* From Prisma v7, the following advice may no longer be valid acc. to instructions given at https://www.prisma.io/docs/getting-started/prisma-orm/quickstart/mysql (but designated output folder is different).
+    More instructions here: https://www.prisma.io/docs/orm/more/upgrade-guides/upgrading-versions
+    
+    Acc. to CodeCraft Academy at https://www.youtube.com/watch?app=desktop&v=XHYAYe-nmxg, 
+    ES modules do not allow the direct importation of the functions and objects of Prisma Client, which is written in CommonJS.
+    Node.js requires a direct importation.
+    The solution is to omit the following line (location for output) since it is used for direct importation, and then install Prisma Client.
+    Prisma will generate a folder for the Prisma client in node_modules/.prisma/client (also called @prisma/client) instead of a folder in a custom location. 
+    output = "../src/generated"
+    */
+}
+
+datasource db {
+    provider = "mysql"
+    url      = env("DATABASE_URL")
+}
+
+/* Diagram to implement in this project: https://drawsql.app/teams/webudvikler-team-techcollege/diagrams/wallywood */
+
+/* The user model is for logging in. 
+"Feltet role skal bruges til brugerroller som eksempelvis user og admin. Du kan bruge datatypen enum til denne."
+https://moodle.techcollege.dk/course/section.php?id=282550
+The enum data type works a bit like a select menu.
+*/
+enum Role {
+    USER
+    ADMIN
+}
+
+model User {
+    id           Int    @id @default(autoincrement())
+    firstname    String 
+    lastname     String 
+    email        String  @unique
+    password     String
+    role         Role //See enum above
+    isActive     Boolean
+    createdOn    DateTime @default(now())
+
+    // 2 many-to-many relationships
+    cartLines    CartLine[] //Plural: a user can put more than 1 item in his/her cart. Saving the same item to cart more than once should be prevented with a composite index. 
+    userRatings  UserRating[] //Plural: a user can rate more than 1 poster. A user should not be able to rate the same poster multiple times thanks to a composite index.
+}
+
+model Poster {
+    id               Int    @id @default(autoincrement())
+    name             String 
+    slug             String
+    description      String
+    image            String
+    width            Int
+    height           Int
+    price            Decimal @db.Decimal(10,2) //From Everride codealong; I had Float in the Everride exercises. 
+    stock            Int
+    createdOn        DateTime @default(now())
+    updatedOn        DateTime @default(now())
+
+    // 3 many-to-many relationships
+    cartLines        CartLine[] //Plural: a poster can be in more than 1 user's cart.
+    userRatings      UserRating[] //Plural: a poster can receive a rating from more than 1 user.
+    genrePosterRels  GenrePosterRel[] //Plural: a poster (film) can belong to multiple genres.
+}
+
+model Genre {
+    id               Int    @id @default(autoincrement())
+    title            String
+    slug             String 
+    createdOn        DateTime @default(now())
+    updatedOn        DateTime @default(now())
+
+    // 1 many-to-many relationship
+    genrePosterRels  GenrePosterRel[] //Plural: a genre can include multiple posters (films).
+}
+
+// Relationstabel
+model CartLine {
+    id         Int    @default(autoincrement()) @unique
+    user_id    Int
+    poster_id  Int   
+    quantity   Int
+    createdOn  DateTime @default(now())
+
+    /* Many-to-many relationship: 
+    - A user can put more than 1 poster in his/her cart. 
+    - A poster can be saved to the cart by multiple users. 
+    - Saving the same item to cart more than once should be prevented with a composite index, i.e. the **combination** of user_id and poster_id in rel. table has to be unique.
+    */
+    /* Prisma error in terminal says: 
+    "Each model must have at most one id criteria. You can't have `@id` and `@@id` at the same time."
+    As a consequence, @id needs to be deleted in the value of the first property above, and id needs to be added below.
+
+    "@@id (...)
+    Defines a multi-field ID (composite ID) on the model."
+    https://www.prisma.io/docs/orm/reference/prisma-schema-reference#unique-1
+
+    "Although there are only two fields in the response, those two fields make up a compound ID named postId_userId.
+    You can also create a named compound ID or compound unique constraint by using the @@id or @@unique attributes' name field. For example: (...)
+    @@id(name: "likeId", [postId, userId])"
+    https://www.prisma.io/docs/orm/prisma-client/special-fields-and-types/working-with-composite-ids-and-constraints
+    
+    Term: composite ID; synonyms: compound ID, compound unique constraint, composite key... 
+    */
+    @@id(name: "compositeId", [id, user_id, poster_id]) // composite primary key
+
+    users      User @relation(fields: [user_id], references: [id]) //Plural: multiple users can save the same poster to cart.
+    posters    Poster @relation(fields: [poster_id], references: [id]) //Plural: multiple posters can be saved to cart by a single user.
+}
+
+
+// Relationstabel
+model UserRating {
+    id         Int    @default(autoincrement()) @unique
+    user_id    Int
+    poster_id  Int   
+    numStars   Int 
+    createdOn  DateTime @default(now())
+
+    /* Many-to-many relationship: 
+    - A user can rate more than 1 poster. 
+    - A poster can receive different ratings from different users. 
+    - A user must only be able to give one rating per product he or she rates. This can be done with a composite index. 
+    */
+    @@id(name: "compositeId", [id, user_id, poster_id]) // composite primary key
+
+    users      User @relation(fields: [user_id], references: [id]) //Plural: multiple users can rate the same poster.
+    posters    Poster @relation(fields: [poster_id], references: [id]) //Plural: a user can rate multiple posters.
+}
+
+// Relationstabel
+model GenrePosterRel {
+    id         Int    @default(autoincrement()) @unique
+    genre_id   Int
+    poster_id  Int   
+    createdOn  DateTime @default(now())
+
+    /* Many-to-many relationship: 
+    - A genre can include more than 1 poster (film). 
+    - A film can belong to multiple genres.
+    - The same genre should not be given to a poster more than once, and a genre should not list a poster twice. The **combination** of genre_id and poster_id in rel. table has to be unique. This can be done with a composite index. 
+    */
+    @@id(name: "compositeId", [id, genre_id, poster_id]) // composite primary key
+
+    genres     Genre @relation(fields: [genre_id], references: [id]) //Plural: multiple genres can include one film.
+    posters    Poster @relation(fields: [poster_id], references: [id]) //Plural: multiple films (posters) can be part of a genre.
+}
+
