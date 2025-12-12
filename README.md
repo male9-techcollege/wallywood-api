@@ -22,6 +22,6 @@ For at bruge API'et:
 > * <localhost:port>/api/gprel
 > * <localhost:port>/api/cart
 > * <localhost:port>/api/ratings
-* Tilføj ID'et på rækker i databasens tabeller efter disse "base routes" for at hente enkelte rækker, f.eks.: <localhost>/api/users/1
+* Tilføj ID'et på rækker i databasens tabeller efter disse "base routes" for at hente, opdatere og slette enkelte rækker, f.eks.: <localhost>/api/users/1
 
 Copyright 2025, Marie-Pierre Lessard
