@@ -1,4 +1,4 @@
 # KILDER FOR DEN FØLGENDE KODE: Prisma og Everride codealongs 
 node_modules
 .env
-prisma/csv
+./prisma/csv
