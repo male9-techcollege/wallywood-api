@@ -6,4 +6,14 @@ Den tilhørende Postman-kollektion er udgivet på adressen [https://documenter.g
 
 En del af opgavens krav (relationerne mellem tabellerne) ligger på [https://drawsql.app/teams/webudvikler-team-techcollege/diagrams/wallywood](https://drawsql.app/teams/webudvikler-team-techcollege/diagrams/wallywood).
 
+## Vejledning til installation og opstart af API'et 
+
+For at bruge API'et:
+* Lav en klone af API'et på din computer.
+* Installer Node.js, hvis denne runtime environment ikke er på computeren endnu.
+* Installer afhængighederne ved at indtaste den følgende kommando i terminalen, fra roden af API'et: npm i
+* Byg din frontend-løsning og brug API'et ved at kalde de følgende ruter fra din frontend.
+** 1
+** 2
+
 Copyright 2025, Marie-Pierre Lessard
