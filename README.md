@@ -10,8 +10,9 @@ En del af opgavens krav (relationerne mellem tabellerne) ligger på [https://dra
 
 For at bruge API'et:
 * Lav en klone af API'et på din computer.
-* Installer Node.js, hvis denne runtime environment ikke er på computeren endnu.
+* Installer Node.js, hvis denne "runtime environment" ikke er på computeren endnu.
 * Installer afhængighederne ved at indtaste den følgende kommando i terminalen, fra roden af API'et: npm i
+* Udfyld .env-filen for at være i stand til at seede din database med kommandoerne i package.json.
 * Byg din frontend-løsning og brug API'et ved at kalde de følgende ruter fra din frontend.
 > * <localhost:port>/api/users
 > * <localhost:port>/api/login
