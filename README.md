@@ -13,13 +13,14 @@ For at bruge API'et:
 * Installer Node.js, hvis denne runtime environment ikke er på computeren endnu.
 * Installer afhængighederne ved at indtaste den følgende kommando i terminalen, fra roden af API'et: npm i
 * Byg din frontend-løsning og brug API'et ved at kalde de følgende ruter fra din frontend.
-> * <localhost>/api/users
-> * <localhost>/api/login
-> * <localhost>/api/auth
-> * <localhost>/api/posters
-> * <localhost>/api/genres
-> * <localhost>/api/gprel
-> * <localhost>/api/cart
-> * <localhost>/api/ratings
+> * <localhost:port>/api/users
+> * <localhost:port>/api/login
+> * <localhost:port>/api/auth
+> * <localhost:port>/api/posters
+> * <localhost:port>/api/genres
+> * <localhost:port>/api/gprel
+> * <localhost:port>/api/cart
+> * <localhost:port>/api/ratings
+* Tilføj ID'et på rækker i databasens tabeller efter disse "base routes" for at hente enkelte rækker, f.eks.: <localhost>/api/users/1
 
 Copyright 2025, Marie-Pierre Lessard
