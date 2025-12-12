@@ -6,6 +6,8 @@
 /* Named import from express */
 import { Router } from "express";
 import { createRecordByMariePierreLessard, getRecordsByMariePierreLessard, getRecordByMariePierreLessard, updateRecordByMariePierreLessard, deleteRecordByMariePierreLessard } from "../controllers/posterController.js";
+import { authenticateTokenByMariePierreLessard } from "../middleware/authenticateToken.js";
+import { authoriseRoleByMariePierreLessard } from "../middleware/authorizeRole.js";
 
 /* The purpose of the following is to avoid repetition on sites with lots of pages. */
 const router = Router();
@@ -17,7 +19,7 @@ In index.js, /api/<name> is given as the end point that is simply called / (a ro
 The point is to be able to efficiently subdivide by brand, etc. 
 */
 /* These are subroutes. The routes in index.js file are called base routes. */
-router.post("/", createRecordByMariePierreLessard);
+router.post("/", authenticateTokenByMariePierreLessard, authoriseRoleByMariePierreLessard("ADMIN"), createRecordByMariePierreLessard);
 
 //Thanks to Express, it is not necessary to include the arguments (req, res) (matching the params in the function expression called). Express does it for us.
 router.get("/", getRecordsByMariePierreLessard);
@@ -36,9 +38,9 @@ https://moodle.techcollege.dk/course/section.php?id=284745
 */
 router.get("/:id", getRecordByMariePierreLessard);
 
-router.put("/:id", updateRecordByMariePierreLessard);
+router.put("/:id", authenticateTokenByMariePierreLessard, authoriseRoleByMariePierreLessard("ADMIN"), updateRecordByMariePierreLessard);
 
-router.delete("/:id", deleteRecordByMariePierreLessard);
+router.delete("/:id", authenticateTokenByMariePierreLessard, authoriseRoleByMariePierreLessard("ADMIN"), deleteRecordByMariePierreLessard);
 
 /* Function expression "router" exported as an alias (<name>RouterByMariePierreLessard). 
 Other version on Moodle:

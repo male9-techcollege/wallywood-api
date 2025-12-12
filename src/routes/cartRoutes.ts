@@ -6,18 +6,20 @@
 /* Se tilhørende kommentarer i posterRoutes.ts/.js */
 import { Router } from "express";
 import { createRecordByMariePierreLessard, getRecordsByMariePierreLessard, getRecordByMariePierreLessard, updateRecordByMariePierreLessard, deleteRecordByMariePierreLessard } from "../controllers/cartController.js";
+import { authenticateTokenByMariePierreLessard } from "../middleware/authenticateToken.js";
+import { authoriseRoleByMariePierreLessard } from "../middleware/authorizeRole.js";
 
 const routerByMariePierreLessard = Router();
 
-routerByMariePierreLessard.post("/", createRecordByMariePierreLessard);
+routerByMariePierreLessard.post("/", authenticateTokenByMariePierreLessard, authoriseRoleByMariePierreLessard("ADMIN", "USER"), createRecordByMariePierreLessard);
 
-routerByMariePierreLessard.get("/", getRecordsByMariePierreLessard);
+routerByMariePierreLessard.get("/", authenticateTokenByMariePierreLessard, authoriseRoleByMariePierreLessard("ADMIN", "USER"), getRecordsByMariePierreLessard);
 
-routerByMariePierreLessard.get("/:id", getRecordByMariePierreLessard);
+routerByMariePierreLessard.get("/:id", authenticateTokenByMariePierreLessard, authoriseRoleByMariePierreLessard("ADMIN", "USER"), getRecordByMariePierreLessard);
 
-routerByMariePierreLessard.put("/:id", updateRecordByMariePierreLessard);
+routerByMariePierreLessard.put("/:id", authenticateTokenByMariePierreLessard, authoriseRoleByMariePierreLessard("ADMIN", "USER"), updateRecordByMariePierreLessard);
 
-routerByMariePierreLessard.delete("/:id", deleteRecordByMariePierreLessard);
+routerByMariePierreLessard.delete("/:id", authenticateTokenByMariePierreLessard, authoriseRoleByMariePierreLessard("ADMIN", "USER"), deleteRecordByMariePierreLessard);
 
 export { routerByMariePierreLessard as cartRouterByMariePierreLessard };
 

@@ -60,7 +60,7 @@ export const loginUserByMariePierreLessard = async (email: string, password: str
             role: user.role
         },
         JWT_SECRET,
-        { expiresIn: "1h" } // token udløber efter 1 time
+        { expiresIn: "4h" } // token udløber efter 4 timer
     );
     console.log(token);
 
