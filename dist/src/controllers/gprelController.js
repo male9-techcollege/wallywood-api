@@ -52,12 +52,17 @@ export const getRecordsByMariePierreLessard = async (req, res) => {
     ;
 };
 export const getRecordByMariePierreLessard = async (req, res) => {
+    console.log(1212);
+    /* This returns "undefined"
+    */
+    console.log(req.params);
+    const id = Number(req.params.id);
     /* Acc. to advice from Kasper, once I deconstruct the compound ID, which requires it to be an object, not a string or an array,
     I should be able to fish out the property id from the deconstructed object and use it to get/update/delete single records. */
-    let tryFishingOutCompoundIdfromParams1 = req.params.id_genre_id_poster_id; //NOT type array of strings (i.e. string[]) yet, just a string because it is fished out of the URL
-    console.log(tryFishingOutCompoundIdfromParams1);
-    let tryFishingOutCompoundIdfromParams2 = req.params.compositeId; //NOT type array of strings (i.e. string[]) yet, just a string because it is fished out of the URL
-    console.log(tryFishingOutCompoundIdfromParams2);
+    //let tryFishingOutCompoundIdfromParams1 = req.params.id_genre_id_poster_id; //NOT type array of strings (i.e. string[]) yet, just a string because it is fished out of the URL
+    //console.log(tryFishingOutCompoundIdfromParams1);
+    //let tryFishingOutCompoundIdfromParams2 = req.params.compositeId; //NOT type array of strings (i.e. string[]) yet, just a string because it is fished out of the URL
+    //console.log(tryFishingOutCompoundIdfromParams2);
     //THe following deconstructing assignment should work, but I don't know what the delimiter is (comma, space)?
     //let { id, genre_id, poster_id } = tryFishingOutCompoundIdfromParams.split(",");
     //console.log({ id, genre_id, poster_id })

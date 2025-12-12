@@ -40,9 +40,9 @@ import { authRouterByMariePierreLessard } from "./routes/authRoutes.js";
 import { posterRouterByMariePierreLessard } from "./routes/posterRoutes.js";
 import { genreRouterByMariePierreLessard } from "./routes/genreRoutes.js";
 import { gprelRouterByMariePierreLessard } from "./routes/gprelRoutes.js";
+import { cartRouterByMariePierreLessard } from "./routes/cartRoutes.js";
+import { ratingRouterByMariePierreLessard } from "./routes/ratingRoutes.js";
 /* TO DO: rename 
-import { categoryRouterByMariePierreLessard } from "./routes/categoryRoutes.js";
-import { fuelRouterByMariePierreLessard } from "./routes/fuelRoutes.js";
 import { legalPagesRouterByMariePierreLessard } from "./routes/legalRoutes.js";
 import { dealershipRouterByMariePierreLessard } from "./routes/dealershipRoutes.js";
 import { errorRouterByMariePierreLessard } from "./routes/errorRoutes.js";
@@ -109,9 +109,9 @@ serverAppByMariePierreLessard.use("/api/auth", authRouterByMariePierreLessard);
 serverAppByMariePierreLessard.use("/api/posters", posterRouterByMariePierreLessard);
 serverAppByMariePierreLessard.use("/api/genres", genreRouterByMariePierreLessard);
 serverAppByMariePierreLessard.use("/api/gprel", gprelRouterByMariePierreLessard);
+serverAppByMariePierreLessard.use("/api/cart", cartRouterByMariePierreLessard);
+serverAppByMariePierreLessard.use("/api/ratings", ratingRouterByMariePierreLessard);
 /* TO DO: rename 
-serverAppByMariePierreLessard.use("/api/categories", categoryRouterByMariePierreLessard);
-serverAppByMariePierreLessard.use("/api/fuels", fuelRouterByMariePierreLessard);
 serverAppByMariePierreLessard.use("/api/legal", legalPagesRouterByMariePierreLessard);
 serverAppByMariePierreLessard.use("/api/dealerships", dealershipRouterByMariePierreLessard);
 */

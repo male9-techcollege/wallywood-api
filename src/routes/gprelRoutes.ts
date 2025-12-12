@@ -5,8 +5,7 @@
 - ... */
 /* Se tilhørende kommentarer i posterRoutes.ts/.js */
 import { Router } from "express";
-import { createRecordByMariePierreLessard, getRecordsByMariePierreLessard, getRecordByMariePierreLessard } from "../controllers/gprelController.js";
-//import { createRecordByMariePierreLessard, getRecordsByMariePierreLessard, getRecordByMariePierreLessard, updateRecordByMariePierreLessard, deleteRecordByMariePierreLessard } from "../controllers/gprelController.js";
+import { createRecordByMariePierreLessard, getRecordsByMariePierreLessard, getRecordByMariePierreLessard, updateRecordByMariePierreLessard, deleteRecordByMariePierreLessard } from "../controllers/gprelController.js";
 
 const routerByMariePierreLessard = Router();
 
@@ -16,8 +15,8 @@ routerByMariePierreLessard.get("/", getRecordsByMariePierreLessard);
 
 routerByMariePierreLessard.get("/:id", getRecordByMariePierreLessard);
 
-// routerByMariePierreLessard.put("/:id", updateRecordByMariePierreLessard);
+routerByMariePierreLessard.put("/:id", updateRecordByMariePierreLessard);
 
-// routerByMariePierreLessard.delete("/:id", deleteRecordByMariePierreLessard);
+routerByMariePierreLessard.delete("/:id", deleteRecordByMariePierreLessard);
  
 export { routerByMariePierreLessard as gprelRouterByMariePierreLessard };

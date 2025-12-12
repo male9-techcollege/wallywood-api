@@ -146,7 +146,7 @@ model CartLine {
     
     Term: composite ID; synonyms: compound ID, compound unique constraint, composite key... 
     */
-    @@id(name: "compositeId", [id, user_id, poster_id]) // composite primary key
+    @@id(name: "compositeKey", [user_id, poster_id]) // composite primary key
 
     users      User @relation(fields: [user_id], references: [id]) //Plural: multiple users can save the same poster to cart.
     posters    Poster @relation(fields: [poster_id], references: [id]) //Plural: multiple posters can be saved to cart by a single user.
@@ -166,7 +166,7 @@ model UserRating {
     - A poster can receive different ratings from different users. 
     - A user must only be able to give one rating per product he or she rates. This can be done with a composite index. 
     */
-    @@id(name: "compositeId", [id, user_id, poster_id]) // composite primary key
+    @@id(name: "compositeKey", [user_id, poster_id]) // composite primary key
 
     users      User @relation(fields: [user_id], references: [id]) //Plural: multiple users can rate the same poster.
     posters    Poster @relation(fields: [poster_id], references: [id]) //Plural: a user can rate multiple posters.
@@ -184,7 +184,7 @@ model GenrePosterRel {
     - A film can belong to multiple genres.
     - The same genre should not be given to a poster more than once, and a genre should not list a poster twice. The **combination** of genre_id and poster_id in rel. table has to be unique. This can be done with a composite index. 
     */
-    @@id(name: "compositeId", [id, genre_id, poster_id]) // composite primary key
+    @@id(name: "compositeKey", [genre_id, poster_id]) // composite primary key
 
     genres     Genre @relation(fields: [genre_id], references: [id]) //Plural: multiple genres can include one film.
     posters    Poster @relation(fields: [poster_id], references: [id]) //Plural: multiple films (posters) can be part of a genre.

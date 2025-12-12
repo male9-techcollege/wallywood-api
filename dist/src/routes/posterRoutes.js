@@ -1,4 +1,3 @@
-/* TO DO: This used to be carRoutes. Test */
 /* KILDER FOR DEN FØLGENDE KODE:
 - Everride codealongs og mine tilhørende øvelser (version 6 i TypeScript)
   Note: teacher's code from Everride codealongs can be found at https://github.com/Webudvikler-TechCollege/H1WE080125-dsi-codealong

@@ -1,3 +1,4 @@
+/* Maybe TO DO: experiment with include instead of select */
 /* TO DO: add missing random values to pre-request script in Postman for POST and PUT */
 /* KILDER FOR DEN FØLGENDE KODE:
 - Everride codealongs og mine tilhørende øvelser (version 6 i TypeScript)
