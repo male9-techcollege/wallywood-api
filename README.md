@@ -13,7 +13,7 @@ For at bruge API'et:
 * Installer Node.js, hvis denne "runtime environment" ikke er på computeren endnu.
 * Installer afhængighederne ved at indtaste den følgende kommando i terminalen, fra roden af API'et: npm i
 * Udfyld .env-filen for at være i stand til at seede din database med kommandoerne i package.json.
-* Byg din frontend-løsning og brug API'et ved at kalde de følgende ruter fra din frontend. Disse "base routes" bruges til at hente flere rækker og danne nye rækker.
+* Byg din frontend-løsning og brug API'et ved at kalde de følgende ruter fra din frontend. 
 > * <localhost:port>/api/users
 > * <localhost:port>/api/login
 > * <localhost:port>/api/auth
@@ -23,5 +23,6 @@ For at bruge API'et:
 > * <localhost:port>/api/cart
 > * <localhost:port>/api/ratings
 * Tilføj ID'et på rækker i databasens tabeller efter disse "base routes" for at hente, opdatere og slette enkelte rækker, f.eks.: <localhost>/api/users/1
+* For at hente flere rækker og danne nye rækker, bruger man "base routes".
 
 Copyright 2025, Marie-Pierre Lessard
