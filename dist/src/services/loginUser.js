@@ -50,7 +50,7 @@ export const loginUserByMariePierreLessard = async (email, password) => {
         email: user.email,
         fullname: `${user.firstname} ${user.lastname}`,
         role: user.role
-    }, JWT_SECRET, { expiresIn: "1h" } // token udløber efter 1 time
+    }, JWT_SECRET, { expiresIn: "4h" } // token udløber efter 4 timer
     );
     console.log(token);
     /* Explanation for the following deconstruction:

@@ -16,10 +16,12 @@ export const authoriseRoleByMariePierreLessard = (...allowedRoles) => {
             return res.status(401).json({ message: "Error 401: you are not logged in." });
         }
         ;
-        /* TO DO: this does not meet the requirements of assignment Wallywood */
-        // Hvis der ikke er sat nogen roller, så giv bare adgang
+        // Hvis der ikke er sat nogen roller...
         if (allowedRoles.length === 0) {
+            /* The following was in the Everride assignment, but the Wallywood assignment demands that access be restricted.
             return next();
+            */
+            console.log("Error 500: the required access roles are not defined.");
         }
         ;
         // Tjek om brugerens role er en af de tilladte

@@ -5,12 +5,13 @@
 - ... */
 /* Se tilhørende kommentarer i posterRoutes.ts/.js */
 import { Router } from "express";
-import { createRecordByMariePierreLessard, getRecordsByMariePierreLessard, getRecordByMariePierreLessard } from "../controllers/gprelController.js";
-//import { createRecordByMariePierreLessard, getRecordsByMariePierreLessard, getRecordByMariePierreLessard, updateRecordByMariePierreLessard, deleteRecordByMariePierreLessard } from "../controllers/gprelController.js";
+import { createRecordByMariePierreLessard, getRecordsByMariePierreLessard, getRecordByMariePierreLessard, updateRecordByMariePierreLessard, deleteRecordByMariePierreLessard } from "../controllers/gprelController.js";
+import { authenticateTokenByMariePierreLessard } from "../middleware/authenticateToken.js";
+import { authoriseRoleByMariePierreLessard } from "../middleware/authorizeRole.js";
 const routerByMariePierreLessard = Router();
-routerByMariePierreLessard.post("/", createRecordByMariePierreLessard);
+routerByMariePierreLessard.post("/", authenticateTokenByMariePierreLessard, authoriseRoleByMariePierreLessard("ADMIN"), createRecordByMariePierreLessard);
 routerByMariePierreLessard.get("/", getRecordsByMariePierreLessard);
 routerByMariePierreLessard.get("/:id", getRecordByMariePierreLessard);
-// routerByMariePierreLessard.put("/:id", updateRecordByMariePierreLessard);
-// routerByMariePierreLessard.delete("/:id", deleteRecordByMariePierreLessard);
+routerByMariePierreLessard.put("/:id", authenticateTokenByMariePierreLessard, authoriseRoleByMariePierreLessard("ADMIN"), updateRecordByMariePierreLessard);
+routerByMariePierreLessard.delete("/:id", authenticateTokenByMariePierreLessard, authoriseRoleByMariePierreLessard("ADMIN"), deleteRecordByMariePierreLessard);
 export { routerByMariePierreLessard as gprelRouterByMariePierreLessard };

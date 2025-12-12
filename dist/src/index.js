@@ -1,4 +1,3 @@
-/* TO DO: review comments (done), add sources (done), rename function expressions and fields */
 /* KILDER FOR DEN FØLGENDE KODE:
 - Everride codealongs og mine tilhørende øvelser (version 6 i TypeScript)
   Note: teacher's code from Everride codealongs can be found at https://github.com/Webudvikler-TechCollege/H1WE080125-dsi-codealong
@@ -38,12 +37,12 @@ import { authRouterByMariePierreLessard } from "./routes/authRoutes.js";
 import { posterRouterByMariePierreLessard } from "./routes/posterRoutes.js";
 import { genreRouterByMariePierreLessard } from "./routes/genreRoutes.js";
 import { gprelRouterByMariePierreLessard } from "./routes/gprelRoutes.js";
-/* TO DO: rename
-import { categoryRouterByMariePierreLessard } from "./routes/categoryRoutes.js";
-import { fuelRouterByMariePierreLessard } from "./routes/fuelRoutes.js";
+import { cartRouterByMariePierreLessard } from "./routes/cartRoutes.js";
+import { ratingRouterByMariePierreLessard } from "./routes/ratingRoutes.js";
+/* Maybe TO DO: use
+import { errorRouterByMariePierreLessard } from "./routes/errorRoutes.js";
 import { legalPagesRouterByMariePierreLessard } from "./routes/legalRoutes.js";
 import { dealershipRouterByMariePierreLessard } from "./routes/dealershipRoutes.js";
-import { errorRouterByMariePierreLessard } from "./routes/errorRoutes.js";
 */
 /* Initialiser dotenv config
 Indsæt nedenstående i din index.js fil for at kalde config metoden på dotenv objektet og dermed indlæse .env filens variabler ind i node miljøet:
@@ -102,18 +101,19 @@ serverAppByMariePierreLessard.use("/api/auth", authRouterByMariePierreLessard);
 serverAppByMariePierreLessard.use("/api/posters", posterRouterByMariePierreLessard);
 serverAppByMariePierreLessard.use("/api/genres", genreRouterByMariePierreLessard);
 serverAppByMariePierreLessard.use("/api/gprel", gprelRouterByMariePierreLessard);
-/* TO DO: rename
-serverAppByMariePierreLessard.use("/api/categories", categoryRouterByMariePierreLessard);
-serverAppByMariePierreLessard.use("/api/fuels", fuelRouterByMariePierreLessard);
-serverAppByMariePierreLessard.use("/api/legal", legalPagesRouterByMariePierreLessard);
-serverAppByMariePierreLessard.use("/api/dealerships", dealershipRouterByMariePierreLessard);
-*/
-/* FEJLSSIDER til at håndtere brugerforespørgsler på sider som ikke er sat op i din router (404 requests):
+serverAppByMariePierreLessard.use("/api/cart", cartRouterByMariePierreLessard);
+serverAppByMariePierreLessard.use("/api/ratings", ratingRouterByMariePierreLessard);
+/* TO DO: maybe add...
+
+FEJLSSIDER til at håndtere brugerforespørgsler på sider som ikke er sat op i din router (404 requests):
 Se eksempel på
 https://github.com/expressjs/express/blob/master/examples/error-pages/index.js
 (Fundet via https://expressjs.com/en/starter/examples.html)
+
+serverAppByMariePierreLessard.use("/api/errors", errorRouterByMariePierreLessard);
+serverAppByMariePierreLessard.use("/api/legal", legalPagesRouterByMariePierreLessard);
+serverAppByMariePierreLessard.use("/api/dealerships", dealershipRouterByMariePierreLessard);
 */
-//serverAppByMariePierreLessard.use("/api/errors", errorRouterByMariePierreLessard);
 /* To check if access is given at that port.
 1. Start server in terminal.
 2. Open link in browser */
