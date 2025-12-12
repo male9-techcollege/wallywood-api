@@ -23,6 +23,6 @@ For at bruge API'et:
 > * <localhost:port>/api/cart
 > * <localhost:port>/api/ratings
 * Tilføj ID'et på rækker i databasens tabeller efter disse "base routes" for at hente, opdatere og slette enkelte rækker, f.eks.: <localhost>/api/users/1
-* For at hente flere rækker og danne nye rækker, bruger man "base routes".
+* For at hente flere rækker og danne nye rækker, brug bare "base routes".
 
 Copyright 2025, Marie-Pierre Lessard
